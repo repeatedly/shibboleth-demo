@@ -42,11 +42,29 @@ class MainController < Ramaze::Controller
   end
   alias_view 'status', 'metadata'
 
+  def login
+    config = ShibbolethDemo.options.login
+
+    # User was successful Shibboleth authentication when user reached this point.
+    # So, Shibbolize application doesn't have to check password.
+    if config.registered.include?(request.env['HTTP_' + config.attribute.upcase])
+      @title   = 'Login success'
+      @caption = 'You are registered user.'
+
+      # Usually, redirect user to application home.
+    else
+      @title   = 'Login failure'
+      @caption = 'You are un-registered user.'
+
+      # Or auto register like Moodle here.
+    end
+  end
+
   private
 
   def get_data_from_shib(path, params = nil)
-    http = Net::HTTP.new('localhost', '443')
-    http.use_ssl = true
+    http             = Net::HTTP.new('localhost', '443')
+    http.use_ssl     = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     result = http.start { |connection|
@@ -68,7 +86,7 @@ class MainController < Ramaze::Controller
     end
   end
 
-  def cookie_to_str
+  def cookies_to_string
     request.cookies.map do |key, value|
       "#{key}=#{value}"
     end.join(';')

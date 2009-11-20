@@ -24,4 +24,16 @@ describe MainController do
     get('/status').status.should == 200
     last_response.should =~ /<h2>Status<\/h2>/
   end
+
+  should 'show login page with fail parameter' do
+    attribute = ShibbolethDemo.options.login.attribute
+    get('/login', nil, 'HTTP_' + attribute.upcase => 'dummy')
+    last_response.should =~ /<h2>Login failure<\/h2>/
+  end
+
+  should 'show login page with success parameter' do
+    attribute = ShibbolethDemo.options.login.attribute
+    get('/login', nil, 'HTTP_' + attribute.upcase => 'student')
+    last_response.should =~ /<h2>Login success<\/h2>/
+  end
 end

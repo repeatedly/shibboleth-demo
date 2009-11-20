@@ -33,11 +33,15 @@ module ShibbolethDemo
         'E-mail'                   => 'mail'
       }
 
-    o 'Attribute for login', :id,
-      'mail'
+    sub :login do
+      # You select unique id (e.g. eppn, mail, uid, etc)
+      o 'Attribute for login', :attribute,
+        'cn'
 
-    o 'Unregister user create?', :auto,
-      false
+      # Test data. In fact, use Database, Directory Service, etc.
+      o 'Registered users', :registered,
+        ['student', 'teacher', 'stuff']
+    end
   end
 end
 
