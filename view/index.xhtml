@@ -1,0 +1,26 @@
+    <h3>User attribute</h3>
+    <table class="info-map">
+      <tbody>
+      <?r @user.each_pair do |key, value| ?>
+      <tr>
+        <td class="info-key">#{key}</td>
+        <td>#{value}</td>
+      </tr>
+      <?r end ?>
+      </tbody>
+    </table>
+
+    <h3>Shibboleth information</h3>
+    <table class="info-map">
+      <tbody>
+      <?r @other.each_pair do |key, value| ?>
+      <tr>
+        <td class="info-key">#{key}</td>
+        <td>#{value}</td>
+      </tr>
+      <?r end ?>
+      </tbody>
+    </table>
+
+
+

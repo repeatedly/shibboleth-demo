@@ -1,0 +1,311 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="description" content="Shibboleth demo site" />
+  #{css 'screen'}
+  <title>#{ShibbolethDemo.options.federation.name} - Shibboleth Demo</title>
+  <style type="text/css">
+@charset "utf-8";
+
+
+body {
+  background:#fff;
+  font: 16px/1.95em "Arial", "Times New Roman", sans-serif;
+  margin:0;
+  color:#666666;
+  padding-top:20px;
+  border:3px solid #eeeeee;
+}
+
+
+html {
+  border:15px solid #f6f6f6;
+  border-left:30px solid #f6f6f6;
+  border-right:30px solid #f6f6f6;
+}
+
+
+* {
+  margin:0;
+  padding:0;
+  outline:none;
+}
+
+
+#footer {
+  padding:20px 50px;
+  margin-top:50px;
+  clear:both;
+  border-top:2px solid #eeeeee;
+  font:80% Verdana;
+  line-height:25px;
+}
+
+#footer a {
+  color:#999999;
+}
+
+#footer .validate {
+  float:right;
+}
+
+
+table#attribute-map {
+  width:100%;
+  padding:5px;
+  border:1px solid #eeeeee;
+  font-weight: bold;
+  text-align: left;
+}
+
+table#attribute-map td {
+  background:#f3f3f3;
+}
+
+table#attribute-map td.attribute {
+  color: #4169E1;
+  background:#ffffff;
+}
+
+
+#container {
+  width:95%;
+  margin:0 auto;
+}
+
+
+#content {
+  width:70%;
+  float:left;
+  margin-bottom:50px;
+}
+
+#content h3 {
+  margin:20px 0;
+}
+
+#content p {
+  line-height:30px;
+  margin:20px 0;
+  word-spacing:2px;
+}
+
+#content p a {
+  color:#222222;
+  text-decoration:none;
+  border-bottom:1px solid #cccccc;
+}
+
+#content p a:hover {
+  border-bottom:1px solid #aaaaaa;
+}
+
+#content h2 {
+  font:190% Times;
+  margin-top:45px;
+}
+
+#content h2 a {
+  color:#333333;
+  text-decoration:none;
+}
+
+#content ul {
+  margin:15px 0 15px 25px;
+}
+
+#content ul li {
+  border-bottom:1px solid #eeeeee;
+  padding:10px;
+  color:#444444;
+}
+
+#content img {
+  background:#ffffff;
+  padding:1px;
+  border:3px solid #eeeeee;
+  margin:10px;
+}
+
+
+#sidebar {
+  margin-left:75%;
+  border-left:1px solid #eeeeee;
+  padding-left:30px;
+}
+
+#sidebar ul {
+  list-style:none;
+}
+
+#sidebar ul a {
+  color:#444444;
+  font:80% Verdana;
+  text-decoration:none;
+}
+
+#sidebar ul a span {
+  color:#cccccc;
+}
+
+#sidebar ul a:hover span {
+  color:#333333;
+}
+
+#sidebar p {
+  font:80% Verdana;
+  line-height:24px;
+  margin:10px 0 20px 0;
+}
+
+#sidebar ul li {
+  background:#fafafa;
+  margin:1px 0 0 0;
+  padding:5px;
+}
+
+#sidebar h3 {
+  font:120% Arial;
+  margin:5px 0;
+  color:#222222;
+}
+
+
+
+blockquote {
+  background:#f6f6f6;
+  padding:0 10px;
+  border:1px solid #eeeeee;
+  font:100% Georgia;
+}
+
+
+#header {
+  width:100%;
+  margin:0 auto;
+  padding:20px 0;
+}
+
+#header .right {
+  float:right;
+}
+
+#header h1 {
+  font:290% Arial;
+  letter-spacing:-2px;
+  margin-bottom:5px;
+  margin-left:35px;
+}
+
+#header h1 a {
+  color:#000000;
+  text-decoration:none;
+}
+
+#header h3 {
+  font:80% Verdana;
+  color:#999999;
+  display:inline;
+  margin-left:35px;
+}
+
+
+ul#nav {
+  background: #4169E1;
+  padding:10px;
+  font-size:80%;
+  border-top:3px solid #0000FF;
+  border-bottom:3px solid #0000FF;
+  font-weight:bold;
+  margin:45px 0 0 0;
+}
+
+ul#nav li {
+  display:inline;
+  list-style:none;
+  margin-right:10px;
+}
+
+ul#nav li a {
+  padding:10px 14px;
+  color:#ffffff;
+  text-decoration:none;
+}
+
+ul#nav li a:hover {
+  background:#6495ED;
+  color:#ffffff;
+}
+
+ul#nav li a.active {
+  background:#ffffff;
+  color:#333333;
+  border-right:2px solid #0000FF;
+  border-bottom:2px solid #0000FF;
+}
+
+
+p.about {
+  border-top:3px solid #0000FF;
+  border-bottom:3px solid #0000FF;
+  color:#ffffff;
+  background:	#4169E1;
+  padding:10px;
+}
+
+p.about a {
+  color:#ffffff;
+}
+  </style>
+</head>
+ 
+<body>
+
+<div id="header">
+  <h1>Shibboleth Demo</h1>
+
+  <ul id="nav">
+    <li><a href="#">Information</a></li>
+    <li><a href="#">Metadata</a></li>
+    <li><a href="#">Session</a></li>
+    <li><a href="#">Status</a></li>
+  </ul>
+</div>
+
+<div id="container">
+  <div id="content">
+    <h2>#{@title}</h2>
+    <p>
+      #{@caption}
+    </p>
+
+#{@content}
+
+  </div>
+
+  <div id="sidebar">
+    <h3>About</h3>
+    <p class="about">
+      This site provides Shibboleth information.
+    </p>
+
+    <h3>Links</h3>
+    <ul>
+      <li><a href="#{ShibbolethDemo.options.federation.site}"><span>&raquo;</span> #{ShibbolethDemo.options.federation.name}</a></li>
+      <li><a href="http://shibboleth.internet2.edu/"><span>&raquo;</span> Shibboleth&reg;</a></li>
+    </ul>
+  </div>
+</div>
+
+<div id="footer">
+  <p class="validate"><a href="http://validator.w3.org/check?uri=referer">XHTML</a> | <a href="http://jigsaw.w3.org/css-validator/">CSS</a></p>
+</div>
+
+</body>
+</html>
