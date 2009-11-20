@@ -19,29 +19,29 @@ This application provides Shibboleth test site.
 
   Allow require modules.
 
-      $ sudo a2enmod proxy proxy_http headers
+    $ sudo a2enmod proxy proxy_http headers
 
   Put following code to site configuration (e.g. site-enabled/shibboleth)
 
-      <Location /Shibboleth>
-          AuthType shibboleth
-          ShibRequireSession On
-          ShibUseHeaders On
-          require valid-user
-      </Location>
+    <Location /Shibboleth>
+        AuthType shibboleth
+        ShibRequireSession On
+        ShibUseHeaders On
+        require valid-user
+    </Location>
 
-      <Proxy http://127.0.0.1:7000/>
-             Order deny,allow
-             Allow from all
-      </Proxy>
+    <Proxy http://127.0.0.1:7000/>
+           Order deny,allow
+           Allow from all
+    </Proxy>
 
-      RequestHeader set X_FORWARDED_PROTO 'https'
-      ProxyPass /Shibboleth/ http://127.0.0.1:7000/
-      ProxyPassReverse /Shibboleth/ http://127.0.0.1:7000/
+    RequestHeader set X_FORWARDED_PROTO 'https'
+    ProxyPass /Shibboleth/ http://127.0.0.1:7000/
+    ProxyPassReverse /Shibboleth/ http://127.0.0.1:7000/
 
   Run ramaze (-D option means daemonize).
 
-      $ ramaze start -D
+    $ ramaze start -D
 
 # Copyright
 
