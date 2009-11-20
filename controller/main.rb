@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 require 'net/https'
+require 'rexml/document'
+require 'rexml/formatters/pretty'
 
 class MainController < Ramaze::Controller
   layout :default
@@ -21,7 +23,7 @@ class MainController < Ramaze::Controller
 
     shib_prefix = prefix + 'SHIB'
     request.env.each_pair do |key, value|
-      @other[key] = value if key[0..8] == shib_prefix
+      @other[key[5..-1]] = value if key[0..8] == shib_prefix
     end
   end
 
@@ -42,16 +44,28 @@ class MainController < Ramaze::Controller
 
   private
 
-  def get_data_from_shib(path)
+  def get_data_from_shib(path, params = nil)
     http = Net::HTTP.new('localhost', '443')
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    http.start { |connection|
-      connection.get('/Shibboleth.sso/' + path,
-                     'Cookie' => cookie_to_str).body
+
+    result = http.start { |connection|
+      connection.get('/Shibboleth.sso/' + path, params)
     }
+
+    format(result)
   rescue
     'Access failed.'
+  end
+
+  def format(result)
+    if result['Content-Type'] =~ /xml/
+      xml = ''
+      REXML::Formatters::Pretty.new.write(REXML::Document.new(result.body), xml)
+      xml
+    else
+      result.body
+    end
   end
 
   def cookie_to_str
