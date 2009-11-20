@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'net/https'
+require 'open-uri'
 require 'rexml/document'
 require 'rexml/formatters/pretty'
 
@@ -62,33 +62,15 @@ class MainController < Ramaze::Controller
 
   private
 
-  def get_data_from_shib(path, params = nil)
-    http             = Net::HTTP.new('localhost', '443')
-    http.use_ssl     = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-    result = http.start { |connection|
-      connection.get('/Shibboleth.sso/' + path, params)
-    }
-
-    format(result)
+  def get_data_from_shib(path)
+    format(open('http://localhost/Shibboleth.sso/' + path) { |f| f.read })
   rescue
     'Access failed.'
   end
 
   def format(result)
-    if result['Content-Type'] =~ /xml/
-      xml = ''
-      REXML::Formatters::Pretty.new.write(REXML::Document.new(result.body), xml)
-      xml
-    else
-      result.body
-    end
-  end
-
-  def cookies_to_string
-    request.cookies.map do |key, value|
-      "#{key}=#{value}"
-    end.join(';')
+    xml = ''
+    REXML::Formatters::Pretty.new.write(REXML::Document.new(result), xml)
+    xml
   end
 end
