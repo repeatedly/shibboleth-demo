@@ -19,4 +19,9 @@ describe MainController do
     get('/metadata').status.should == 200
     last_response.should =~ /<h2>Metadata<\/h2>/
   end
+
+  should 'show status page' do
+    get('/status').status.should == 200
+    last_response.should =~ /<h2>Status<\/h2>/
+  end
 end

@@ -17,6 +17,10 @@ This application provides Shibboleth test site.
 
   Show metadata of Service Provider.
 
+* status
+
+  Show current status of Service Provider.
+
 # Apache configuration
 
 ## Debian

@@ -27,10 +27,18 @@ class MainController < Ramaze::Controller
 
   def metadata
     @title   = 'Metadata'
-    @caption = 'Following metadata provided by this SP'
-    @data    = get_data_from_shib('Metadata')
+    @caption = 'Following metadata provided by Service Provider.'
+    @data    = get_data_from_shib(@title)
     @name    = 'metadata xml'  
   end
+
+  def status
+    @title   = 'Status'
+    @caption = 'Following XML represents current status of Service Provider.'
+    @data    = get_data_from_shib(@title)
+    @name    = 'current status'  
+  end
+  alias_view 'status', 'metadata'
 
   private
 
