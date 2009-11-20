@@ -21,6 +21,10 @@ This application provides Shibboleth test site.
 
   Show current status of Service Provider.
 
+* login
+
+  Simulate shibboleth login but nothing happen.
+
 # Apache configuration
 
 ## Debian
@@ -50,6 +54,10 @@ This application provides Shibboleth test site.
   Run ramaze (-D option means daemonize).
 
     $ ramaze start -D
+
+  when test
+
+    $ ruby start.rb
 
 # Copyright
 
