@@ -120,6 +120,11 @@ table.info-map td.info-key {
 }
 
 
+div#show-data {
+    border: medium dotted #4169E1;
+}
+
+
 #sidebar {
   margin-left:75%;
   border-left:1px solid #eeeeee;

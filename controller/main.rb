@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+require 'net/https'
+
 class MainController < Ramaze::Controller
   layout :default
   engine :Etanni
+  helper :cgi
 
   def index
     @title   = 'Shibboleth attribute'
@@ -20,5 +23,32 @@ class MainController < Ramaze::Controller
     request.env.each_pair do |key, value|
       @other[key] = value if key[0..8] == shib_prefix
     end
+  end
+
+  def metadata
+    @title   = 'Metadata'
+    @caption = 'Following metadata provided by this SP'
+    @data    = get_data_from_shib('Metadata')
+    @name    = 'metadata xml'  
+  end
+
+  private
+
+  def get_data_from_shib(path)
+    http = Net::HTTP.new('localhost', '443')
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    http.start { |connection|
+      connection.get('/Shibboleth.sso/' + path,
+                     'Cookie' => cookie_to_str).body
+    }
+  rescue
+    'Access failed.'
+  end
+
+  def cookie_to_str
+    request.cookies.map do |key, value|
+      "#{key}=#{value}"
+    end.join(';')
   end
 end

@@ -13,6 +13,10 @@ This application provides Shibboleth test site.
 
   Show the user and Shibboleth informaion.
 
+* metadata
+
+  Show metadata of Service Provider.
+
 # Apache configuration
 
 ## Debian
